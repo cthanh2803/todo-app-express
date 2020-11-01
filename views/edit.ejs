@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CD Collection</title>
+</head>
+<body><h2>Edit</h2>
+  <% todos.forEach(function(details) { %>
+    <form action="/edit/<%= details._id %>" method="POST">
+      <input type="text" value="<%= details.title %>" name="title">
+      <br/>
+      <br/>
+      <button><a href="/" class="btn btn-primary">Back</a></button>
+      <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+  <% }) %></body>
+</html>

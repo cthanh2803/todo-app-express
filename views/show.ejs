@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CD Collection</title>
+</head>
+<body>
+  <h2>Records<h2>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% todos.forEach(function(details) { %>
+      <tr>
+        <th><%= details.title %></th>
+        <td><a href="/edit/<%= details._id %>">Edit</a> | <a href="/delete/<%= details._id %>">Delete</a></td>
+      </tr>
+    <% }) %>
+    </tbody>
+    <button><a href="/">Back</a></button>
+</body>
+</html>

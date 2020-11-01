@@ -15,7 +15,7 @@ const client = new MongoClient(uri, { useUnifiedTopology: true });
 client.connect(err => {
   const db = client.db("todo_app_express").collection("todos");  
   app.listen(3001, function(){
-      console.log("Connected MongoDB Cloud");
+    console.log("Connected MongoDB Cloud");
   });
 
   // GET
@@ -29,13 +29,12 @@ client.connect(err => {
   // POST
   app.post('/show', (req, res) => {
     db.insertOne(req.body, (err, result) => {
-        if (err) return console.log("Error: " + err);
-
-        console.log("Successfully saved on the DB!");
-        res.redirect('/');
-        db.find().toArray((err, results) => {
-          console.log(results);
-          });
+      if (err) return console.log("Error: " + err);
+      console.log("Successfully saved on the DB!");
+      res.redirect('/');
+      db.find().toArray((err, results) => {
+        console.log(results);
+      });
     });
   });
 
@@ -43,35 +42,35 @@ client.connect(err => {
   var ObjectId = require('mongodb').ObjectID;
   app.route('/edit/:id')
   .get((req,res) => {
-      var id = req.params.id;db.find(ObjectId(id)).toArray((err, result) => {
-          if (err) return console.log("Error: " + err);
-          res.render('edit.ejs', { todos: result });
-      });
+    var id = req.params.id;
+    db.find(ObjectId(id)).toArray((err, result) => {
+      if (err) return console.log("Error: " + err);
+      res.render('edit.ejs', { todos: result });
+    });
   })
   .post((req,res) => {
-      var id = req.params.id;
-      var title = req.body.title;
-      db.updateOne({_id: ObjectId(id)}, {
-          $set: {
-            title: title
-          }
-      }, (err, result) => {
+    var id = req.params.id;
+    var title = req.body.title;
+    db.updateOne({_id: ObjectId(id)}, {
+      $set: {
+        title: title
+      }
+    }, (err, result) => {
       if (err) return res.send(err);
-          res.redirect('/');
-          console.log("Successfully Updated!");
-      })
+      res.redirect('/');
+      console.log("Successfully Updated!");
+    })
   });
-
 
   // DELETE
   app.route('/delete/:id')
   .get((req,res) => {
-      var id = req.params.id;
-      db.deleteOne({_id: ObjectId(id)}, (err, result) => {
-        if (err) return res.send(500, err);
-        console.log("Delete sucessfully!");
-        res.redirect('back');
-      });
+    var id = req.params.id;
+    db.deleteOne({_id: ObjectId(id)}, (err, result) => {
+      if (err) return res.send(500, err);
+      console.log("Delete sucessfully!");
+      res.redirect('back');
+    });
   });
 });
 
